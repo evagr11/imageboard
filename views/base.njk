@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }}</title>
+  <title>{{ title }} · Imageboard</title>
   <link rel="stylesheet" href="/styles.css">
-  </head>
+</head>
 <body>
-    <p>{{ title }}</p>
+    <header>
+        <a class="logo" href="/boards">Imageboard</a>
+        <nav>
+            <a href="/boards">Boards</a>
+            {% if currentUser %}
+                <a href="/profile">{{ currentUser }}</a>
+                <form action="/logout" method="POST" class="inline">
+                    <button type="submit">Log Out</button>
+                </form>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </nav>
+    </header>
 
     <main>
         {% block content %}

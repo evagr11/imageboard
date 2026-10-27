@@ -1,15 +1,6 @@
 # Imageboard
 
 ## Conceptos
-- **VALIDACIÒN** ➜ Comprueba el tipo, escapado de caracteres, longitud
-- **AUTENTICACIÓN** ➜ Comprobamos si existe, vemos quien es, es decir si es quien dice ser
-- **AUTORIZACIÓN** ➜ Permisos
-- **REGISTRO** ➜ Crear un usuario
-- **LOGIN** ➜ Acceso
-- **LOGOUT** ➜ Cierra la sesion
-- **SESIÓN** ➜ Instancia del usuario
-
-## Conceptos
 - **VALIDACIÓN** ➜ Comprueba el tipo, escapado de caracteres, longitud, formato y consistencia de los datos ingresados por el usuario.
 - **AUTENTICACIÓN** ➜ Comprobamos si existe, vemos quién es, es decir, si es quien dice ser. Se realiza mediante contraseñas, tokens o sistemas de terceros como OAuth.
 - **AUTORIZACIÓN** ➜ Permisos que determinan qué acciones o recursos puede acceder un usuario autenticado.

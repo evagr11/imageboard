@@ -8,7 +8,7 @@ router.post('/login', async (req, res) => {
         const { name, password } = req.body;
         const user = await authenticateUser(name, password);
         if (!user) {
-            return res.status(401).redirect('/login');
+            return res.redirect('/login?error=1');
         }
         req.session.userId = user.id;
         req.session.username = user.name;
@@ -16,7 +16,7 @@ router.post('/login', async (req, res) => {
     }
     catch (error) {
         console.error(error);
-        res.json({ error: "An error occurred during login." });
+        res.status(500).json({ error: "An error occurred during login." });
     }
 });
 

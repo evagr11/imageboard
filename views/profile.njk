@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    {{ Title }}
+    <h1>{{ title }}</h1>
     <p>Welcome, {{ user }}.</p>
 
     <form action="/logout" method="POST">
         <button type="submit">Log Out</button>
     </form>
-    
+
 {% endblock %}

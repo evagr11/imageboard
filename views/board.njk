@@ -1,20 +1,28 @@
 {% extends "base.njk" %}
 
 {% block content %}
-<h1>{{ board.name }}</h1>
-<ul>
-    {% for post in posts %}
-        <li>
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.content }}</p>
-        </li>
-    {% endfor %}
-</ul>
+<h1>/{{ board.name }}/</h1>
 
+{% if currentUser %}
 <h2>Send a Message</h2>
-<form action="/boards/{{ board.id }}/posts" method="POST">
+<form action="/boards/{{ board.id }}/posts" method="POST" class="card">
     <input type="text" name="title" placeholder="Post Title" required>
     <textarea name="content" placeholder="Post Content" required></textarea>
     <button type="submit">Send Message</button>
 </form>
+{% else %}
+<p><a href="/login">Inicia sesión</a> para publicar en este tablón.</p>
+{% endif %}
+
+<ul class="posts">
+    {% for post in posts %}
+        <li class="card">
+            <h3>{{ post.title }}</h3>
+            <p class="meta">{{ post.user.name if post.user else "anónimo" }}</p>
+            <p>{{ post.content }}</p>
+        </li>
+    {% else %}
+        <li>Este tablón aún no tiene publicaciones.</li>
+    {% endfor %}
+</ul>
 {% endblock %}

@@ -2,16 +2,22 @@
 
 {% block content %}
 <h1>Boards</h1>
-<ul>
+<ul class="boards">
     {% for board in boards %}
         <li>
-            <a href="/boards/{{ board.id }}">{{ board.name }}</a>
+            <a href="/boards/{{ board.id }}">/{{ board.name }}/</a>
         </li>
+    {% else %}
+        <li>Todavía no hay tablones.</li>
     {% endfor %}
 </ul>
 
-<form action="/boards" method="POST">
+{% if currentUser %}
+<form action="/boards" method="POST" class="card">
     <input type="text" name="name" placeholder="New Board Name" required>
     <button type="submit">Create Board</button>
 </form>
+{% else %}
+<p><a href="/login">Inicia sesión</a> para crear tablones.</p>
+{% endif %}
 {% endblock %}

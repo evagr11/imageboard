@@ -1,174 +1,174 @@
-# Imageboard
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0%3A2E1065%2C50%3A7C3AED%2C100%3ADDD6FE&height=200&section=header&text=Imageboard&fontSize=60&fontColor=fff&fontAlignY=38&desc=Tablones+y+publicaciones+con+Node.js+y+Express&descAlignY=62&descSize=18" width="100%"/>
+</div>
 
-## Introduccion
+<div align="center">
+  <a href="https://github.com/evagr11/imageboard" target="_blank"><img src="https://img.shields.io/badge/Ver_Código-2E1065?style=for-the-badge&logo=github&logoColor=white" alt="Ver Código"></a>
+</div>
 
-Este proyecto es un imageboard que permite a los usuarios:
+<div align="center">
+  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&size=18&duration=3500&pause=800&color=8B5CF6&center=true&vCenter=true&width=600&lines=Backend+con+Node.js+y+Express%3BTablones+y+publicaciones%3BRegistro+y+login+con+bcrypt%3BSesiones+guardadas+en+SQLite" alt="Typing SVG" /></a>
+</div>
 
-- Crear hilos en tablones
-- Dejar imagenes a los hilos
-- Comentar en los hilos
-- Dejar imagenes en los comentarios
-- Solo los usuarios pueden interactuar con los tablones
-- Los usuarios pueden registrarse con nombre y contraseña
-- Los usuarios pueden logearse usando sus credenciales
-- Los usuarios pueden ver su perfil
+# 🚀 Sobre el Proyecto
 
-## Tecnologias
+**Imageboard** es una aplicación web al estilo de los foros por tablones: hay varios tablones temáticos (`/general/`, `/videojuegos/`...) y dentro de cada uno los usuarios publican mensajes. Cualquiera puede leer, pero para publicar o crear tablones hay que registrarse e iniciar sesión.
 
-- Nodejs, estamos usando ESM en lugar de CommonJS, esto hace que:
-  - Usaremos import/export en lugar de require/module.exports
-  - Debemos añadir `type: "module"` en el package.json
-- Express para el backend
-- Sequelize como ORM para la base de datos
-- SQLite como base de datos para usuarios y mensajes
-- SQLite como base de datos para las sesiones
-- bcrypt para hashea las contraseñas
-- multer para subir las imagenes
-- nunjucks como motor de plantillas
+El servidor está hecho con **Express** y renderiza las páginas en el servidor con **Nunjucks**. Los datos se guardan en **SQLite** a través del ORM **Sequelize**, y las sesiones de los usuarios en otra base de datos SQLite aparte.
 
-## Iniciar app
+✨ **Características principales:**
+
+*   🗂️ **Tablones:** Lista de tablones ordenada por nombre y página propia para cada uno con sus publicaciones, de la más nueva a la más antigua y con el nombre de su autor.
+*   📝 **Publicaciones:** Formulario de título y contenido dentro de cada tablón, disponible solo con la sesión iniciada.
+*   👤 **Registro e inicio de sesión:** Las contraseñas se guardan hasheadas con `bcrypt` y nunca se devuelven en ninguna respuesta. Si el nombre ya existe o el login falla, se muestra un aviso en el formulario.
+*   🍪 **Sesiones persistentes:** `express-session` con `connect-sqlite3`, así que la sesión se mantiene aunque se reinicie el servidor (dura un día).
+*   🔒 **Rutas protegidas:** Un middleware `isAuthenticated` protege el perfil, la creación de tablones y la de publicaciones.
+*   🔗 **Relaciones con Sequelize:** Un usuario tiene muchas publicaciones y un tablón tiene muchas publicaciones (`hasMany` / `belongsTo`).
+*   🌱 **Datos de prueba:** Al arrancar se crean usuarios, tablones y mensajes de ejemplo.
+*   📋 **Logs de peticiones:** `morgan` registra cada petición en la consola; también hay un logger personalizado con colores usando `chalk`.
+
+# 🧠 Contexto del Proyecto
+
+Este proyecto se desarrolló durante el segundo curso del ciclo formativo de **Desarrollo de Aplicaciones Multiplataforma (DAM)** para practicar el desarrollo backend con **Node.js**: rutas y middlewares con Express, un ORM sobre una base de datos relacional, plantillas en el servidor y los conceptos de **validación, autenticación, autorización y sesión**.
+
+En el repositorio también están mis apuntes de clase:
+
+- 📒 [`apuntes.md`](apuntes.md): conceptos de autenticación, flujo de login y buenas prácticas de seguridad.
+- 🔗 [`referencias.md`](referencias.md): enlaces a la documentación de Express y Sequelize.
+
+# 🛠️ Stack Tecnológico
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express">
+  <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white" alt="Sequelize">
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/Nunjucks-1C4913?style=for-the-badge&logo=nunjucks&logoColor=white" alt="Nunjucks">
+  <img src="https://img.shields.io/badge/Status-En_desarrollo-8B5CF6?style=for-the-badge" alt="Status En desarrollo">
+</div>
+
+<br>
+
+<div align="center">
+
+| Componente | Tecnología |
+| :--------- | :--------- |
+| **Entorno** | `Node.js` con módulos ESM (`import` / `export`) |
+| **Servidor** | `Express 5` con routers separados por recurso |
+| **Base de datos** | `SQLite` con el ORM `Sequelize` |
+| **Plantillas** | `Nunjucks` con `autoescape` activado contra XSS |
+| **Seguridad** | `bcrypt` para las contraseñas y `express-session` + `connect-sqlite3` para las sesiones |
+| **Logs** | `morgan` y `chalk` |
+| **Desarrollo** | `nodemon` para reiniciar el servidor al guardar |
+
+</div>
+
+# 📂 Estructura del Proyecto
 
 ```bash
-npm init -y
+imageboard/
+├── index.js                # Configura Express, sesiones y Nunjucks; arranca la BD y el servidor
+├── db/
+│   ├── sequelize.js        # Conexión a db/database.sqlite
+│   ├── associations.js     # Relaciones User-Post y Board-Post
+│   ├── populate.js         # Datos de prueba
+│   └── init.js             # Script para recrear las tablas a mano
+├── models/
+│   ├── user.js             # Usuario (nombre único y contraseña hasheada)
+│   ├── board.js            # Tablón
+│   ├── post.js             # Publicación (título, contenido, autor y tablón)
+│   └── auth.js             # Comprueba las credenciales con bcrypt
+├── router/
+│   ├── boards.js           # /boards y /boards/:id/posts
+│   ├── users.js            # /users (registro y lista sin contraseñas)
+│   ├── auth.js             # /login y /logout
+│   └── pages.js            # /register, /login y /profile
+├── middleware/
+│   ├── auth.js             # isAuthenticated
+│   └── log.js              # Loggers con morgan y chalk
+├── views/                  # Plantillas Nunjucks (base, boards, board, login, register...)
+├── public/
+│   └── styles.css          # Estilos
+├── apuntes.md
+└── referencias.md
 ```
 
-Modificamos el package.json para configurar el uso de modulos ESM
+### 🌐 Rutas
 
-```json
-{
-  "type": "module"
-}
-```
-Instalamos las dependencias que usaremos en el proyecto
+<div align="center">
 
-```bash
-npm install express sequelize bcrypt  connect-sqlite3
-```
+| Método | Ruta | Descripción | Sesión |
+| :----: | :--- | :---------- | :----: |
+| `GET` | `/` | Redirige a `/boards` | ❌ |
+| `GET` | `/boards` | Lista de tablones | ❌ |
+| `POST` | `/boards` | Crea un tablón | ✅ |
+| `GET` | `/boards/:id` | Publicaciones de un tablón | ❌ |
+| `POST` | `/boards/:id/posts` | Publica en un tablón | ✅ |
+| `GET` | `/register` · `/login` | Formularios | ❌ |
+| `POST` | `/users` | Registra un usuario (formulario o JSON) | ❌ |
+| `GET` | `/users` | Lista de usuarios en JSON, sin contraseñas | ❌ |
+| `POST` | `/login` · `/logout` | Inicia o cierra la sesión | — |
+| `GET` | `/profile` | Perfil del usuario | ✅ |
 
-- express: framework para el backend
-- sequelize: ORM para la base de datos
-- bcrypt: libreria para hashear contraseñas
-- connect-sqlite3: libreria para usar sqlite como base de datos para las sesiones y usuarios
-- multer: libreria para subir archivos
-- nunjucks: motor de plantillas para el frontend
+</div>
 
-Necesitaremos más dependencias para el proyecto, pero las iremos instalando a medida que las necesitemos.
+# 🚀 Cómo Utilizar el Proyecto
 
-## Estructura del proyecto
+Necesitas **Node.js 18** o superior.
 
-```bash
-.
-├── db
-│   ├── database.sqlite
-│   ├── init.js
-│   ├── populate.js
-│   └── sequelize.js
-├── index.js
-├── models
-│   └── user.js
-├── node_modules
-│   └── ...
-├── package.json
-├── package-lock.json
-├── README.md
-└── views
-    └── test.njk
-```
+1.  **Clona el repositorio:**
+    ```bash
+    git clone https://github.com/evagr11/imageboard.git
+    cd imageboard
+    ```
+2.  **Instala las dependencias:**
+    ```bash
+    npm install
+    ```
+3.  **Arranca el servidor:**
+    ```bash
+    npm start      # o npm run dev para reiniciar al guardar cambios
+    ```
+4.  **Abre** [http://localhost:3000](http://localhost:3000) en el navegador.
 
-### database.sqlite
+Puedes entrar con cualquiera de los usuarios de prueba:
 
-La base de datos como tal.
+<div align="center">
 
-Puedes interactuar con ella usando el cliente de sqlite3 desde la terminal o visualizarla con SQLite Viewer en vscode.
+| Usuario | Contraseña |
+| :-----: | :--------: |
+| `admin` | `adminpass` |
+| `user1` | `user1pass` |
+| `user2` | `user2pass` |
 
-### init.js
+</div>
 
-El script de inicialización para la base de datos:
+> [!NOTE]
+> La base de datos se borra y se vuelve a crear con los datos de prueba cada vez que arranca el servidor (`sequelize.sync({ force: true })`), así que lo que publiques se pierde al reiniciar.
 
-```js
-import { sequelize } from "./sequelize.js";
-import { User } from "../models/user.js";
+> [!TIP]
+> El secreto de las sesiones se lee de la variable de entorno `SESSION_SECRET`. Para algo más que pruebas en local, arráncalo así: `SESSION_SECRET="una-frase-larga-y-aleatoria" npm start`
 
-const initializeDB = async () => {
-    try{
-        await sequelize.sync({ force: true });
-    } catch(error) {
-        console.error("Error initializing the database:", error);
-    }
-};
+# 🎯 Mejoras futuras
 
-initializeDB()
-```
+- 🖼️ Subir imágenes a las publicaciones con `multer` (el modelo `Post` ya tiene el campo `image`).
+- 💬 Respuestas y comentarios dentro de cada publicación.
+- 💾 Dejar de recrear la base de datos en cada arranque y usar migraciones.
+- 🛡️ Tokens CSRF en los formularios y límite de intentos de login.
+- 🗑️ Que cada usuario pueda borrar sus propias publicaciones.
 
-En este script creamos una funcion asincrona que cogerá cualquier modelo importado  y lo sincronizará con la base de datos mediante `sequelize.sync()`.
+<br>
 
-La opción `force: true` eliminará cualquier tabla existente y creará una nueva tabla con la estructura definida en el modelo. Es útil para poder probar cambios en tus modelos sin tener que eliminar manualmente las tablas de la base de datos. Sin embargo, ten en cuenta que esto eliminará todos los datos existentes en esas tablas, así que desactivalo en producción o cuando no necesites la funcionalidad durante el desarrollo.
+<div align="center">
+  <p>Creado por <strong>Eva Gallardo</strong></p>
+  <a href="https://github.com/evagr11" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  </a>
+  <a href="https://www.linkedin.com/in/eva-gallardo-romero-830362349/" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+  </a>
+</div>
 
-### populate.js
-
-El script que usaremos para iniciar algunos datos de prueba en la base de datos.
-
-### sequelize.js
-
-```js
-import { Sequelize } from 'sequelize';
-
-export const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: "db/database.sqlite",
-    logging: false,
-})
-```
-
-En este script creamos la instancia de sequelize que usaremos para interactuar con la base de datos en los demas scripts, asi que nos aseguramos de exportarla, de lo contrario, archivos como `db/init.js` o `models/user.js` no podrian hacer uso de ella.
-
->Recuerda que tienes dos formas de exportar cuando usas ESM, puedes usar `export default` o `export const`, en este caso usamos `export const` para poder importar la instancia de sequelize en otros archivos directamente sin tener que hacer una desestructuracion.
-
-### models/user.js
-
-Nuestro primer (y por ahora unico) modelo, el modelo.
-
-```js
-import { Sequelize } from 'sequelize';
-import { sequelize } from '../db/sequelize.js';
-
-export const User = sequelize.define('User', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    username: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-}, {
-    tableName: "users",
-});
-```
-
-Necesitaremos tanto la clase `Sequelize` como la instancia de sequelize que creamos en `db/sequelize.js`, por lo que importamos ambas.
-
-`Sequelize` incluye los tipos de datos que usamos para definir los campos de la tabla:
-
-- `Sequelize.INTEGER`: tipo de dato entero
-- `Sequelize.STRING`: tipo de dato string
-- `Sequelize.BOOLEAN`: tipo de dato booleano
-
-Este es el unico uso que le damos a la clase `Sequelize`, pero aqui tienes la referencia de los tipos de datos que puedes usar: [Tipos de datos de Sequelize](https://sequelize.org/docs/v6/core-concepts/model-basics/#data-types)
-
-El modelo es el equivalente a esta expresion SQL:
-
-```sql
-CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username STRING NOT NULL UNIQUE,
-    password STRING NOT NULL
-);
-```
-
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0%3A2E1065%2C50%3A7C3AED%2C100%3ADDD6FE&height=120&section=footer" width="100%"/>
+</div>

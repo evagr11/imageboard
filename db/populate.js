@@ -13,10 +13,6 @@ const populateUsers = async () => {
             password: hashedPassword
         })
     }
-
-    for (let i=0; i<users.length; i++) {
-        const user = users[i]
-    }
 }
 
 const populateBoards = async () => {

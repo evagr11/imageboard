@@ -13,7 +13,9 @@ router.get('/register', async (req, res) => {
 router.get('/login', async (req, res) => {
     res.render('login', {
         title: "Login",
-        desc: "Login to your account"
+        desc: "Login to your account",
+        error: req.query.error ? "Usuario o contraseña incorrectos." : null,
+        registered: !!req.query.registered
     });
 });
 
