@@ -1,6 +1,13 @@
+/**
+ * @module models/user
+ * @description Modelo de usuario.
+ */
 import { Sequelize } from 'sequelize';
 import { sequelize } from '../db/sequelize.js';
 
+/**
+ * Usuario (tabla `users`): `name`, único, y `password`, guardada como hash de bcrypt.
+ */
 export const User = sequelize.define('User', {
     id: {
         type: Sequelize.INTEGER,

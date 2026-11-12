@@ -1,3 +1,11 @@
+/**
+ * Servidor del imageboard: Express, plantillas Nunjucks y sesiones guardadas en SQLite.
+ *
+ * Al arrancar crea las relaciones entre modelos, vacía y vuelve a crear la base de datos con
+ * `sequelize.sync({ force: true })`, mete los datos de prueba y escucha en el puerto `PORT`
+ * (3000 por defecto).
+ * @module index
+ */
 import express from 'express';
 import nunjucks from 'nunjucks';
 import session from 'express-session';
@@ -61,6 +69,12 @@ app.get('/', (req, res) => {
 });
 
 
+/**
+ * Prepara la base de datos y arranca el servidor.
+ * @async
+ * @function initializeApp
+ * @memberof module:index
+ */
 const initializeApp = async () => {
   try {
     console.log("Setting up associations...");

@@ -1,3 +1,7 @@
+/**
+ * @module router/users
+ * @description API de usuarios.
+ */
 import { User } from '../models/user.js';
 import express from 'express';
 import bcrypt from 'bcrypt';
@@ -5,6 +9,13 @@ import bcrypt from 'bcrypt';
 const router = express.Router();
 
 // Lista de usuarios sin exponer el hash de la contraseña
+/**
+ * Lista de usuarios en JSON (id, nombre y fecha), sin el hash de la contraseña.
+ *
+ * @name GET /users
+ * @function
+ * @memberof module:router/users
+ */
 router.get('/', async (req, res) => {
     try {
         const users = await User.findAll({ attributes: ['id', 'name', 'createdAt'] });
@@ -16,6 +27,13 @@ router.get('/', async (req, res) => {
 });
 
 // Registro: desde el formulario redirige al login, desde la API devuelve JSON
+/**
+ * Registra un usuario con la contraseña cifrada. Desde el formulario lleva al login; desde la API devuelve el usuario en JSON. Si falta algún dato o el nombre ya existe, devuelve 400.
+ *
+ * @name POST /users
+ * @function
+ * @memberof module:router/users
+ */
 router.post('/', async (req, res) => {
     const { name, password } = req.body;
     const desdeFormulario = req.is('application/x-www-form-urlencoded');

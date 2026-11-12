@@ -1,6 +1,13 @@
+/**
+ * @module models/post
+ * @description Modelo de post.
+ */
 import { Sequelize } from 'sequelize';
 import { sequelize } from '../db/sequelize.js';
 
+/**
+ * Post (tabla `posts`): `title`, `content`, `image` opcional, y el usuario (`userId`) y el tablón (`boardId`) al que pertenece.
+ */
 export const Post = sequelize.define('Post', {
     id: {
         type: Sequelize.INTEGER,

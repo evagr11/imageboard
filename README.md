@@ -4,6 +4,7 @@
 
 <div align="center">
   <a href="https://github.com/evagr11/imageboard" target="_blank"><img src="https://img.shields.io/badge/Ver_Código-2E1065?style=for-the-badge&logo=github&logoColor=white" alt="Ver Código"></a>
+  <a href="https://evagr11.github.io/imageboard/" target="_blank"><img src="https://img.shields.io/badge/Documentación_(JSDoc)-2E1065?style=for-the-badge&logo=javascript&logoColor=white" alt="Documentación del código"></a>
 </div>
 
 <div align="center">

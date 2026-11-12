@@ -1,7 +1,17 @@
+/**
+ * @module middleware/log
+ * @description Registro de peticiones con morgan.
+ */
 import morgan from "morgan";
 import chalk from "chalk";
 
+/**
+ * Registro corto de cada petición, con el formato `dev` de morgan.
+ */
 const loggerBasic = morgan("dev");
+/**
+ * Registro largo: método en color, URL, estado, tiempo, IP, navegador, parámetros, cuerpo y consulta.
+ */
 const loggerCustom = morgan((tokens, req, res) => {
     const method = req.method;
     const url = req.url;
