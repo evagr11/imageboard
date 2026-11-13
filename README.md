@@ -11,33 +11,33 @@
   <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&size=18&duration=3500&pause=800&color=8B5CF6&center=true&vCenter=true&width=600&lines=Backend+con+Node.js+y+Express%3BTablones+y+publicaciones%3BRegistro+y+login+con+bcrypt%3BSesiones+guardadas+en+SQLite" alt="Typing SVG" /></a>
 </div>
 
-# 🚀 Sobre el Proyecto
+# Sobre el Proyecto
 
 **Imageboard** es una aplicación web al estilo de los foros por tablones: hay varios tablones temáticos (`/general/`, `/videojuegos/`...) y dentro de cada uno los usuarios publican mensajes. Cualquiera puede leer, pero para publicar o crear tablones hay que registrarse e iniciar sesión.
 
 El servidor está hecho con **Express** y renderiza las páginas en el servidor con **Nunjucks**. Los datos se guardan en **SQLite** a través del ORM **Sequelize**, y las sesiones de los usuarios en otra base de datos SQLite aparte.
 
-✨ **Características principales:**
+**Características principales:**
 
-*   🗂️ **Tablones:** Lista de tablones ordenada por nombre y página propia para cada uno con sus publicaciones, de la más nueva a la más antigua y con el nombre de su autor.
-*   📝 **Publicaciones:** Formulario de título y contenido dentro de cada tablón, disponible solo con la sesión iniciada.
-*   👤 **Registro e inicio de sesión:** Las contraseñas se guardan hasheadas con `bcrypt` y nunca se devuelven en ninguna respuesta. Si el nombre ya existe o el login falla, se muestra un aviso en el formulario.
-*   🍪 **Sesiones persistentes:** `express-session` con `connect-sqlite3`, así que la sesión se mantiene aunque se reinicie el servidor (dura un día).
-*   🔒 **Rutas protegidas:** Un middleware `isAuthenticated` protege el perfil, la creación de tablones y la de publicaciones.
-*   🔗 **Relaciones con Sequelize:** Un usuario tiene muchas publicaciones y un tablón tiene muchas publicaciones (`hasMany` / `belongsTo`).
-*   🌱 **Datos de prueba:** Al arrancar se crean usuarios, tablones y mensajes de ejemplo.
-*   📋 **Logs de peticiones:** `morgan` registra cada petición en la consola; también hay un logger personalizado con colores usando `chalk`.
+*   **Tablones:** Lista de tablones ordenada por nombre y página propia para cada uno con sus publicaciones, de la más nueva a la más antigua y con el nombre de su autor.
+*   **Publicaciones:** Formulario de título y contenido dentro de cada tablón, disponible solo con la sesión iniciada.
+*   **Registro e inicio de sesión:** Las contraseñas se guardan hasheadas con `bcrypt` y nunca se devuelven en ninguna respuesta. Si el nombre ya existe o el login falla, se muestra un aviso en el formulario.
+*   **Sesiones persistentes:** `express-session` con `connect-sqlite3`, así que la sesión se mantiene aunque se reinicie el servidor (dura un día).
+*   **Rutas protegidas:** Un middleware `isAuthenticated` protege el perfil, la creación de tablones y la de publicaciones.
+*   **Relaciones con Sequelize:** Un usuario tiene muchas publicaciones y un tablón tiene muchas publicaciones (`hasMany` / `belongsTo`).
+*   **Datos de prueba:** Al arrancar se crean usuarios, tablones y mensajes de ejemplo.
+*   **Logs de peticiones:** `morgan` registra cada petición en la consola; también hay un logger personalizado con colores usando `chalk`.
 
-# 🧠 Contexto del Proyecto
+# Contexto del Proyecto
 
 Este proyecto se desarrolló durante el segundo curso del ciclo formativo de **Desarrollo de Aplicaciones Multiplataforma (DAM)** para practicar el desarrollo backend con **Node.js**: rutas y middlewares con Express, un ORM sobre una base de datos relacional, plantillas en el servidor y los conceptos de **validación, autenticación, autorización y sesión**.
 
 En el repositorio también están mis apuntes de clase:
 
-- 📒 [`apuntes.md`](apuntes.md): conceptos de autenticación, flujo de login y buenas prácticas de seguridad.
-- 🔗 [`referencias.md`](referencias.md): enlaces a la documentación de Express y Sequelize.
+- [`apuntes.md`](apuntes.md): conceptos de autenticación, flujo de login y buenas prácticas de seguridad.
+- [`referencias.md`](referencias.md): enlaces a la documentación de Express y Sequelize.
 
-# 🛠️ Stack Tecnológico
+# Stack Tecnológico
 
 <div align="center">
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
@@ -64,7 +64,7 @@ En el repositorio también están mis apuntes de clase:
 
 </div>
 
-# 📂 Estructura del Proyecto
+# Estructura del Proyecto
 
 ```bash
 imageboard/
@@ -94,26 +94,26 @@ imageboard/
 └── referencias.md
 ```
 
-### 🌐 Rutas
+### Rutas
 
 <div align="center">
 
 | Método | Ruta | Descripción | Sesión |
 | :----: | :--- | :---------- | :----: |
-| `GET` | `/` | Redirige a `/boards` | ❌ |
-| `GET` | `/boards` | Lista de tablones | ❌ |
-| `POST` | `/boards` | Crea un tablón | ✅ |
-| `GET` | `/boards/:id` | Publicaciones de un tablón | ❌ |
-| `POST` | `/boards/:id/posts` | Publica en un tablón | ✅ |
-| `GET` | `/register` · `/login` | Formularios | ❌ |
-| `POST` | `/users` | Registra un usuario (formulario o JSON) | ❌ |
-| `GET` | `/users` | Lista de usuarios en JSON, sin contraseñas | ❌ |
+| `GET` | `/` | Redirige a `/boards` | No |
+| `GET` | `/boards` | Lista de tablones | No |
+| `POST` | `/boards` | Crea un tablón | Hecho |
+| `GET` | `/boards/:id` | Publicaciones de un tablón | No |
+| `POST` | `/boards/:id/posts` | Publica en un tablón | Hecho |
+| `GET` | `/register` · `/login` | Formularios | No |
+| `POST` | `/users` | Registra un usuario (formulario o JSON) | No |
+| `GET` | `/users` | Lista de usuarios en JSON, sin contraseñas | No |
 | `POST` | `/login` · `/logout` | Inicia o cierra la sesión | — |
-| `GET` | `/profile` | Perfil del usuario | ✅ |
+| `GET` | `/profile` | Perfil del usuario | Hecho |
 
 </div>
 
-# 🚀 Cómo Utilizar el Proyecto
+# Cómo Utilizar el Proyecto
 
 Necesitas **Node.js 18** o superior.
 
@@ -149,14 +149,6 @@ Puedes entrar con cualquiera de los usuarios de prueba:
 
 > [!TIP]
 > El secreto de las sesiones se lee de la variable de entorno `SESSION_SECRET`. Para algo más que pruebas en local, arráncalo así: `SESSION_SECRET="una-frase-larga-y-aleatoria" npm start`
-
-# 🎯 Mejoras futuras
-
-- 🖼️ Subir imágenes a las publicaciones con `multer` (el modelo `Post` ya tiene el campo `image`).
-- 💬 Respuestas y comentarios dentro de cada publicación.
-- 💾 Dejar de recrear la base de datos en cada arranque y usar migraciones.
-- 🛡️ Tokens CSRF en los formularios y límite de intentos de login.
-- 🗑️ Que cada usuario pueda borrar sus propias publicaciones.
 
 <br>
 
